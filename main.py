@@ -5,7 +5,7 @@ import random
 import string
 
 """| START INITIALIZATION |"""
-MY_GUILD = discord.Object(id=381609335291379725)
+MY_GUILD = discord.Object(id="GUILD_ID")
 
 class MyClient(discord.Client):
     def __init__(self, *, intents: discord.Intents):
@@ -26,7 +26,7 @@ async def on_ready():
     print(f"Logged in as {client.user} (ID: {client.user.id})...")
     print("-----------")
 
-    commands_role = client.get_guild(381609335291379725).get_role(828891908805492737)
+    commands_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
     for member in commands_role.members:
         await member.remove_roles(commands_role)
     print(f"{commands_role.name} role removed from all members...")
@@ -41,9 +41,9 @@ async def on_ready():
 '''
 @client.event
 async def on_voice_state_update(member, before, after):
-    commands_role = client.get_guild(381609335291379725).get_role(828891908805492737)
-    audit_log = client.get_guild(381609335291379725).get_channel(859328948252442645)
-    soundcloud_bot = client.get_guild(381609335291379725).get_member(890343617762304070)
+    commands_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    audit_log = client.get_guild("GUILD_ID").get_channel("CHANNEL_ID")
+    soundcloud_bot = client.get_guild("GUILD_ID").get_member("MEMBER_ID")
     if not before.channel and after.channel and member != soundcloud_bot:
         await member.add_roles(commands_role)
         join_embed = discord.Embed(description = f":small_blue_diamond: {member.mention} **joined voice channel** `{after.channel.name}`", timestamp = datetime.now(), color = discord.Colour.green())
@@ -133,18 +133,18 @@ class ButtonView(discord.ui.View):
 """| VERIFY COMMAND |"""
 @client.tree.command(name = "verify", description = "Issue verification roles for new members")
 async def verify(interaction : discord.Interaction, member: discord.Member):
-    newest_role = client.get_guild(381609335291379725).get_role(385292167733706752) 
-    unique_role = client.get_guild(381609335291379725).get_role(821142461366665257)
-    common_role = client.get_guild(381609335291379725).get_role(821140191875039252)
-    default_role = client.get_guild(381609335291379725).get_role(808598323396739073)
-    games_role = client.get_guild(381609335291379725).get_role(821142807161995276)
-    food_role = client.get_guild(381609335291379725).get_role(821576498536251404)
-    about_role = client.get_guild(381609335291379725).get_role(821323880479195146)
-    channels_role = client.get_guild(381609335291379725).get_role(823175809383923722)
-    verified_role = client.get_guild(381609335291379725).get_role(829940668368945224) 
+    newest_role = client.get_guild("GUILD_ID").get_role("ROLE_ID") 
+    unique_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    common_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    default_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    games_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    food_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    about_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    channels_role = client.get_guild("GUILD_ID").get_role("ROLE_ID")
+    verified_role = client.get_guild("GUILD_ID").get_role("ROLE_ID") 
     roles = [newest_role, unique_role, common_role, default_role, games_role, food_role, about_role, channels_role, verified_role]
 
-    if interaction.user.id != 259571192673861632:
+    if interaction.user.id != "USER_ID":
         await interaction.response.send_message("You do not have permission to use this!", ephemeral = True)
     else:
         for role in roles:
@@ -152,4 +152,4 @@ async def verify(interaction : discord.Interaction, member: discord.Member):
         await interaction.response.send_message(f"{member.mention} has been verified!")  
 '''
 
-client.run("MTAzODI5NjY4NTI5MTUxMTkzMQ.Gl63Vb.TuRa1GodfqcRCp6Up1hF01R9dXQTxKAMCzzv0g")
+client.run("TOKEN")
